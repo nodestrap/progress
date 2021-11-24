@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/progress",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A custom progress bar featuring support for stacked bars, animated backgrounds, text labels, and horizontal/vertical orientation.",
   "type": "module",
   "main": "dist/Progress.jsx",
