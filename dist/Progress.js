@@ -426,32 +426,28 @@ export function Progress(props) {
     })
         .reduce((accum, valueRatio) => accum + valueRatio) // sum
     ), 1);
-    const restProgressBar = (<Element 
+    const restProgressBar = (React.createElement(Element
     // semantics:
-    aria-hidden={true} // just a dummy element, no meaningful content here
-     
-    // classes:
-    mainClass={barSheet.main} 
-    // styles:
-    style={{ ...(props.style ?? {}),
+    , { "aria-hidden": true, 
+        // classes:
+        mainClass: barSheet.main, 
+        // styles:
+        style: { ...(props.style ?? {}),
             // values:
             [progressBarVarDecls.valueRatio]: remainingValueRatio,
-        }}></Element>);
+        } }));
     // jsx:
-    return (<Basic 
-    // other props:
-    {...props} 
-    // semantics:
-    semanticTag={props.semanticTag ?? [null]} semanticRole={props.semanticRole ?? 'group'} aria-orientation={props['aria-orientation'] ?? (orientationVertical ? 'vertical' : 'horizontal')} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main} variantClasses={[...(props.variantClasses ?? []),
+    return (React.createElement(Basic, { ...props, 
+        // semantics:
+        semanticTag: props.semanticTag ?? [null], semanticRole: props.semanticRole ?? 'group', "aria-orientation": props['aria-orientation'] ?? (orientationVertical ? 'vertical' : 'horizontal'), 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main, variantClasses: [...(props.variantClasses ?? []),
             orientationVariant.class,
             progressVariant.class,
-        ]}>
-            {orientationVertical ? restProgressBar : null}
-            {orientationVertical ? React.Children.toArray(children).slice().reverse() : children}
-            {orientationVertical ? null : restProgressBar}
-        </Basic>);
+        ] },
+        orientationVertical ? restProgressBar : null,
+        orientationVertical ? React.Children.toArray(children).slice().reverse() : children,
+        orientationVertical ? null : restProgressBar));
 }
 export function ProgressBar(props) {
     // styles:
@@ -463,22 +459,21 @@ export function ProgressBar(props) {
     // progressBar vars:
     const [, , progressBarVarDecls] = usesProgressBarVars();
     // jsx:
-    return (<Element 
+    return (React.createElement(Element
     // semantics:
-    semanticTag={props.semanticTag ?? [null]} semanticRole={props.semanticRole ?? 'progressbar'} aria-valuenow={props['aria-valuenow'] ?? valueFn} aria-valuemin={props['aria-valuemin'] ?? (negativeFn ? maxFn : minFn)} aria-valuemax={props['aria-valuemax'] ?? (negativeFn ? minFn : maxFn)} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main} 
-    // styles:
-    style={{ ...(props.style ?? {}),
+    , { 
+        // semantics:
+        semanticTag: props.semanticTag ?? [null], semanticRole: props.semanticRole ?? 'progressbar', "aria-valuenow": props['aria-valuenow'] ?? valueFn, "aria-valuemin": props['aria-valuemin'] ?? (negativeFn ? maxFn : minFn), "aria-valuemax": props['aria-valuemax'] ?? (negativeFn ? minFn : maxFn), 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main, 
+        // styles:
+        style: { ...(props.style ?? {}),
             // values:
             [progressBarVarDecls.valueRatio]: valueRatio,
-        }} variantClasses={[...(props.variantClasses ?? []),
+        }, variantClasses: [...(props.variantClasses ?? []),
             progressBarVariant.class,
-        ]}>
-            <Basic 
-    // other props:
-    {...props} 
-    // variants:
-    mild={props.mild ?? false}/>
-        </Element>);
+        ] },
+        React.createElement(Basic, { ...props, 
+            // variants:
+            mild: props.mild ?? false })));
 }
