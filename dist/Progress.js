@@ -75,7 +75,7 @@ export const usesAltBackg = () => {
         altBackgDecls,
     ];
 };
-const [progressBarVarRefs, progressBarVarDecls] = createCssVar();
+const [progressBarVarRefs, progressBarVarDecls] = createCssVar({ minify: false }); // do not minify to make sure `style={{ --valueRatio: ... }}` is the same between in server (without `useProgressBarSheet` rendered) & client (with `useProgressBarSheet` rendered)
 /**
  * Uses ProgressBar variables.
  * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents ProgressBar variables definitions.
