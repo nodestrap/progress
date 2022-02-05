@@ -2,9 +2,10 @@
 import type { SingleOrArray } from '@cssfn/types';
 import type { PropEx } from '@cssfn/css-types';
 import { StyleCollection } from '@cssfn/cssfn';
-import { OrientationName, OrientationRuleOptions, OrientationVariant, BasicProps } from '@nodestrap/basic';
+import { OrientationName, OrientationRuleOptions, OrientationVariant, ThemeName, BasicProps } from '@nodestrap/basic';
 import { ListBasicStyle } from '@nodestrap/list';
 export declare const defaultOrientationRuleOptions: OrientationRuleOptions;
+export declare const usesThemeDefault: (themeName?: ThemeName | null) => import("@cssfn/cssfn").Rule;
 export interface AltBackgVars {
     /**
      * functional alternate background color.
@@ -21,9 +22,9 @@ export interface AltBackgVars {
 }
 /**
  * Uses alternate background layer(s).
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents alternate background layer(s) definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents alternate background layer(s) definitions.
  */
-export declare const usesAltBackg: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<AltBackgVars>, import("@cssfn/css-var").ReadonlyDecls<AltBackgVars>];
+export declare const usesAltBackg: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<AltBackgVars>, import("@cssfn/css-var").ReadonlyDecls<AltBackgVars>];
 export interface ProgressBarVars {
     /**
      * ProgressBar's thumb ratio.
@@ -32,19 +33,19 @@ export interface ProgressBarVars {
 }
 /**
  * Uses ProgressBar variables.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents ProgressBar variables definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents ProgressBar variables definitions.
  */
-export declare const usesProgressBarVars: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<ProgressBarVars>, import("@cssfn/css-var").ReadonlyDecls<ProgressBarVars>];
+export declare const usesProgressBarVars: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<ProgressBarVars>, import("@cssfn/css-var").ReadonlyDecls<ProgressBarVars>];
 export interface RunningVars {
     anim: any;
 }
-export declare const isRunning: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const notRunning: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
+export declare const isRunning: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const notRunning: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
 /**
  * Uses running states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents running state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents running state definitions.
  */
-export declare const usesRunningState: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<RunningVars>, import("@cssfn/css-var").ReadonlyDecls<RunningVars>];
+export declare const usesRunningState: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<RunningVars>, import("@cssfn/css-var").ReadonlyDecls<RunningVars>];
 export declare type ProgressStyle = ListBasicStyle;
 export interface ProgressVariant {
     progressStyle?: ProgressStyle;
@@ -59,12 +60,12 @@ export interface ProgressBarVariant {
 export declare const useProgressBarVariant: (props: ProgressBarVariant) => {
     class: string | null;
 };
-export declare const usesProgressLayout: (options?: OrientationRuleOptions | undefined) => StyleCollection;
-export declare const usesProgressVariants: () => StyleCollection;
+export declare const usesProgressLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesProgressVariants: () => import("@cssfn/cssfn").Rule;
 export declare const useProgressSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
-export declare const usesProgressBarInheritMildVariant: () => StyleCollection;
-export declare const usesProgressBarLayout: () => StyleCollection;
-export declare const usesProgressBarVariants: () => StyleCollection;
+export declare const usesProgressBarInheritMildVariant: () => import("@cssfn/cssfn").Rule;
+export declare const usesProgressBarLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesProgressBarVariants: () => import("@cssfn/cssfn").Rule;
 export declare const useProgressBarSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     '@keyframes itemRunning': PropEx.Keyframes;
