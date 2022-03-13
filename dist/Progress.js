@@ -127,6 +127,11 @@ export const usesRunningState = () => {
         runningDecls,
     ];
 };
+export const useRunningState = (props) => {
+    return {
+        class: (props.running ?? false) ? 'running' : null,
+    };
+};
 export const useProgressVariant = (props) => {
     return {
         class: props.progressStyle ? props.progressStyle : null,
@@ -134,7 +139,7 @@ export const useProgressVariant = (props) => {
 };
 export const useProgressBarVariant = (props) => {
     return {
-        class: props.progressBarStyle ? ((Array.isArray(props.progressBarStyle) ? props.progressBarStyle : [props.progressBarStyle]).filter((style) => !!style).join(' ') || null) : null,
+        class: props.progressBarStyle ? props.progressBarStyle : null,
     };
 };
 // styles:
@@ -262,8 +267,6 @@ export const usesProgressBarVariants = () => {
     // dependencies:
     // colors:
     const [, backgRefs] = usesBackg();
-    // animations:
-    const [running, runningRefs] = usesRunningState();
     // layouts:
     const [sizes] = usesSizeVariant((sizeName) => style({
         // overwrites propName = propName{SizeName}:
@@ -282,10 +285,6 @@ export const usesProgressBarVariants = () => {
         }),
         ...variants([
             rule('.striped', {
-                ...imports([
-                    // states:
-                    running(),
-                ]),
                 // children:
                 ...children(listItemElm, {
                     // backgrounds:
@@ -295,11 +294,25 @@ export const usesProgressBarVariants = () => {
                         // bottom layer:
                         backgRefs.backg,
                     ],
-                    // animations:
-                    anim: runningRefs.anim,
                 }),
             }),
         ]),
+    });
+};
+export const usesProgressBarStates = () => {
+    // dependencies:
+    // states:
+    const [running, runningRefs] = usesRunningState();
+    return style({
+        ...imports([
+            // states:
+            running(),
+        ]),
+        // children:
+        ...children(listItemElm, {
+            // animations:
+            anim: runningRefs.anim,
+        }),
     });
 };
 export const useProgressBarSheet = createUseSheet(() => [
@@ -309,6 +322,8 @@ export const useProgressBarSheet = createUseSheet(() => [
             usesProgressBarLayout(),
             // variants:
             usesProgressBarVariants(),
+            // states:
+            usesProgressBarStates(),
         ]),
     })),
 ], /*sheetId :*/ 'ymt3ybn64g'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
@@ -441,6 +456,8 @@ export function ProgressBar(props) {
     const sheet = useProgressBarSheet();
     // variants:
     const progressBarVariant = useProgressBarVariant(props);
+    // states:
+    const runningState = useRunningState(props);
     // fn props:
     const { valueFn, minFn, maxFn, negativeFn, valueRatio, } = calculateValues(props);
     // progressBar vars:
@@ -452,14 +469,16 @@ export function ProgressBar(props) {
         // semantics:
         semanticTag: props.semanticTag ?? [null], semanticRole: props.semanticRole ?? 'progressbar', "aria-valuenow": props['aria-valuenow'] ?? valueFn, "aria-valuemin": props['aria-valuemin'] ?? (negativeFn ? maxFn : minFn), "aria-valuemax": props['aria-valuemax'] ?? (negativeFn ? minFn : maxFn), 
         // classes:
-        mainClass: props.mainClass ?? sheet.main, 
+        mainClass: props.mainClass ?? sheet.main, variantClasses: [...(props.variantClasses ?? []),
+            progressBarVariant.class,
+        ], stateClasses: [...(props.stateClasses ?? []),
+            runningState.class,
+        ], 
         // styles:
         style: { ...(props.style ?? {}),
             // values:
             [progressBarVarDecls.valueRatio]: valueRatio,
-        }, variantClasses: [...(props.variantClasses ?? []),
-            progressBarVariant.class,
-        ] },
+        } },
         React.createElement(Basic, { ...props, 
             // variants:
             mild: props.mild ?? false })));

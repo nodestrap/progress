@@ -1,5 +1,4 @@
 /// <reference types="react" />
-import type { SingleOrArray } from '@cssfn/types';
 import type { PropEx } from '@cssfn/css-types';
 import { StyleCollection } from '@cssfn/cssfn';
 import { OrientationName, OrientationRuleOptions, OrientationVariant, ThemeName, BasicProps } from '@nodestrap/basic';
@@ -46,6 +45,12 @@ export declare const notRunning: (styles: StyleCollection) => import("@cssfn/css
  * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents running state definitions.
  */
 export declare const usesRunningState: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<RunningVars>, import("@cssfn/css-var").ReadonlyDecls<RunningVars>];
+export interface RunningState {
+    running?: boolean;
+}
+export declare const useRunningState: (props: RunningState) => {
+    class: string | null;
+};
 export declare type ProgressStyle = ListBasicStyle;
 export interface ProgressVariant {
     progressStyle?: ProgressStyle;
@@ -53,12 +58,12 @@ export interface ProgressVariant {
 export declare const useProgressVariant: (props: ProgressVariant) => {
     class: ListBasicStyle | null;
 };
-export declare type ProgressBarStyle = 'striped' | 'running';
+export declare type ProgressBarStyle = 'striped';
 export interface ProgressBarVariant {
-    progressBarStyle?: SingleOrArray<ProgressBarStyle>;
+    progressBarStyle?: ProgressBarStyle;
 }
 export declare const useProgressBarVariant: (props: ProgressBarVariant) => {
-    class: string | null;
+    class: "striped" | null;
 };
 export declare const usesProgressLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
 export declare const usesProgressVariants: () => import("@cssfn/cssfn").Rule;
@@ -66,6 +71,7 @@ export declare const useProgressSheet: import("@cssfn/types").Factory<import("js
 export declare const usesProgressBarInheritMildVariant: () => import("@cssfn/cssfn").Rule;
 export declare const usesProgressBarLayout: () => import("@cssfn/cssfn").Rule;
 export declare const usesProgressBarVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesProgressBarStates: () => import("@cssfn/cssfn").Rule;
 export declare const useProgressBarSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     '@keyframes itemRunning': PropEx.Keyframes;
@@ -150,7 +156,7 @@ export interface ProgressProps<TElement extends HTMLElement = HTMLElement> exten
 }
 export declare function Progress<TElement extends HTMLElement = HTMLElement>(props: ProgressProps<TElement>): JSX.Element;
 export type { OrientationName, OrientationVariant };
-export interface ProgressBarProps<TElement extends HTMLElement = HTMLElement> extends BasicProps<TElement>, ProgressBarVariant {
+export interface ProgressBarProps<TElement extends HTMLElement = HTMLElement> extends BasicProps<TElement>, RunningState, ProgressBarVariant {
     value?: string | number;
     min?: string | number;
     max?: string | number;
