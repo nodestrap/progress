@@ -267,20 +267,12 @@ export const usesProgressBarVariants = () => {
     // dependencies:
     // colors:
     const [, backgRefs] = usesBackg();
-    // layouts:
-    const [sizes] = usesSizeVariant((sizeName) => style({
-        // overwrites propName = propName{SizeName}:
-        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-    }));
     return style({
         // children:
         ...children(listItemElm, {
             ...imports([
                 // variants:
-                usesBasicVariants(),
                 usesProgressBarInheritMildVariant(),
-                // layouts:
-                sizes(),
             ]),
         }),
         ...variants([
