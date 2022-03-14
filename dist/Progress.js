@@ -290,7 +290,7 @@ export const usesProgressBarVariants = () => {
                     // backgrounds:
                     backg: [
                         // top layer:
-                        `${cssProps.itemBackgOverlayImg} left/${cssProps.itemBackgOverlaySize} ${cssProps.itemBackgOverlaySize}`,
+                        `${cssProps.itemBackgStrippedImg} left/${cssProps.itemBackgStrippedSize} ${cssProps.itemBackgStrippedSize}`,
                         // bottom layer:
                         backgRefs.backg,
                     ],
@@ -361,10 +361,10 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
             value[0][0] = value[0][0].replace('180deg', '270deg');
             return value;
         })(),
-        itemBackgOverlayImg: 'linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)',
-        itemBackgOverlaySize: '1rem',
-        itemBackgOverlaySizeSm: '0.25rem',
-        itemBackgOverlaySizeLg: '3rem',
+        itemBackgStrippedImg: 'linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)',
+        itemBackgStrippedSize: '1rem',
+        itemBackgStrippedSizeSm: '0.25rem',
+        itemBackgStrippedSizeLg: '3rem',
         // sizes:
         minInlineSize: 'unset',
         minBlockSize: 'auto',
