@@ -21,7 +21,7 @@ import colors from '@nodestrap/colors'; // configurable colors & theming defs
 import spacers from '@nodestrap/spacers'; // configurable spaces defs
 import { 
 // utilities:
-isTypeOf, parseNumber, } from '@nodestrap/utilities';
+parseNumber, } from '@nodestrap/utilities';
 // nodestrap components:
 import { 
 // react components:
@@ -410,7 +410,7 @@ export function Progress(props) {
     // jsx fn props:
     const remainingValueRatio = 1 - Math.min((React.Children.toArray(children).map((child) => {
         // <ProgressBar> component:
-        if (isTypeOf(child, ProgressBar)) {
+        if (React.isValidElement(child)) {
             // fn props:
             const { valueRatio } = calculateValues(child.props);
             return valueRatio;
